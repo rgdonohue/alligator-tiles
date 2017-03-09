@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title></title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.23.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.23.0/mapbox-gl.css' rel='stylesheet' />
+    <script src='https://api.mapbox.com/mapbox.js/v3.0.1/mapbox.js'></script>
+    <link href='https://api.mapbox.com/mapbox.js/v3.0.1/mapbox.css' rel='stylesheet' />
+
+    <link href="https://api.mapbox.com/mapbox-assembly/v0.10.1/assembly.min.css" rel="stylesheet">
+
+    <!-- Plugins -->
+    <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-hash/v0.2.1/leaflet-hash.js'></script>
+
+    <style>
+        body { margin:0; padding:0; }
+        #map { position:absolute; top:0; bottom:0; width:100%; }
+        #instructions {z-index:1000; position: fixed; top: 20px; margin: 0 auto; left: 0px; right: 0px; width: 50%; background-color: white; font-size: 1.5em; line-height:1.5em; opacity: .9; padding: 20px;}
+    </style>
+</head>
+<body>
+
+<div id="map"></div>
+
+<script>
+
+//Access Token for Mapbox; You can get yours here (after logging in): https://www.mapbox.com/mapbox.js/api/v3.0.1/
+L.mapbox.accessToken = 'pk.eyJ1Ijoicmdkb25vaHVlIiwiYSI6Im5Ua3F4UzgifQ.PClcVzU5OUj17kuxqsY_Dg';
+
+//Create bounds
+var southWest = L.latLng(0,0),
+    northEast = L.latLng(44,44),
+    bounds = L.latLngBounds(southWest, northEast);
+
+//Initialize a map
+var map = L.mapbox.map('map', null,{
+    // set that bounding box as maxBounds to restrict moving the map
+    // see full maxBounds documentation:
+    // http://leafletjs.com/reference.html#map-maxbounds
+    // maxBounds: bounds,
+    maxZoom: 6,
+    minZoom: 0,
+    inertia: false
+  }).setView([22,22],3)
+
+//Put the coords in the URL
+var hash = L.hash(map);
+
+//Create the geotif layer
+var layer = L.mapbox.tileLayer('rgdonohue.60lvcfr1',{
+	maxNativeZoom:8,
+	maxZoom:10,
+	attribution: "alligator sauce"})
+
+//Add it to the map
+layer.addTo(map)
+
+
+
+</script>
+
+</body>
+</html>
